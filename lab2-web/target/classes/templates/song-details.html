@@ -1,0 +1,19 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+</head>
+<body>
+   <h2 th:text="${part.getTitle()}">Title</h2>
+   <h3 th:text="${part.getGenre()}">Genre</h3>
+   <h3 th:text="${part.getReleaseYear()}">Year</h3>
+   <h2>Performers:</h2>
+<ul>
+    <li th:each="artist: ${part.getPerformers()}">
+        <th:block th:text=" ' first name: ' + ${artist.getFirstName()} + ' last name: ' + ${artist.getLastName()}"></th:block>
+<!--        <input type="radio" name="nameArtistForSongRadio" th:value="${artist.getId()}">-->
+    </li>
+</ul>
+</body>
+</html>
