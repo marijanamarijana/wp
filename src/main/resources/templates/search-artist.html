@@ -1,0 +1,23 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+</head>
+<body>
+
+<form action="/search/artist" method="POST">
+<input type="text" name="ArtistText" placeholder="Enter Artist..." required>
+
+    <button type="submit">SearchArtist</button>
+</form>
+
+<h2>Results:</h2>
+<div th:each="artist : ${artists}">
+    <p>
+        <th:block th:text="${artist.getFirstName()}"></th:block>
+        <th:block th:text="${artist.getLastName()}"></th:block>
+    </p>
+</div>
+</body>
+</html>

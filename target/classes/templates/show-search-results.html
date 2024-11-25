@@ -1,0 +1,16 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+</head>
+<body>
+<h2>Results:</h2>
+<div th:each="artist : ${artists}">
+    <p>
+        <th:block th:text="${artist.getFirstName()}"></th:block>
+        <th:block th:text="${artist.getLastName()}"></th:block>
+    </p>
+</div>
+</body>
+</html>
