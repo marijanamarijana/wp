@@ -12,4 +12,5 @@ public interface SongService{
     Artist addArtistToSong(Artist artist, Song song);
     Song findByTrackId(String trackId);
     void addNewSong(String title, String trackId, String genre, Integer ReleaseYear, Album album);
+    
 }
