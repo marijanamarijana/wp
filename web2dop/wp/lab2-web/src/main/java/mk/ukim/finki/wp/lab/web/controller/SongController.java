@@ -4,6 +4,7 @@ import mk.ukim.finki.wp.lab.model.Album;
 import mk.ukim.finki.wp.lab.model.Song;
 import mk.ukim.finki.wp.lab.service.AlbumService;
 import mk.ukim.finki.wp.lab.service.SongService;
+import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
@@ -25,6 +26,7 @@ public class SongController {
         return "songs";
     }
 
+    @PreAuthorize("hasRole('ROLE_ADMIN')")
     @GetMapping("/delete/{id}")
     public String deleteSong(@PathVariable Long id){
 
@@ -35,6 +37,7 @@ public class SongController {
         return "redirect:/songs";
     }
 
+    @PreAuthorize("hasRole('ROLE_ADMIN')")
     @GetMapping("/edit-form/{id}")
     public String getEditSongForm(@PathVariable Long id, Model model){
 
@@ -47,12 +50,14 @@ public class SongController {
         return "redirect:/songs";
     }
 
+    @PreAuthorize("hasRole('ROLE_ADMIN')")
     @GetMapping("/add-form")
     public String getAddSongPage(Model model){
         model.addAttribute("albums", this.albumService.getAllAlbums());
         return "add-song";
     }
 
+    @PreAuthorize("hasRole('ROLE_ADMIN')")
     @PostMapping("/add")
     public String saveSong(@RequestParam String title,
                            @RequestParam String trackId,

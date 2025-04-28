@@ -4,6 +4,10 @@ import jakarta.annotation.PostConstruct;
 import mk.ukim.finki.wp.lab.model.Album;
 import mk.ukim.finki.wp.lab.model.Artist;
 import mk.ukim.finki.wp.lab.model.Song;
+import mk.ukim.finki.wp.lab.model.User;
+import mk.ukim.finki.wp.lab.model.enums.Role;
+import mk.ukim.finki.wp.lab.repository.UserRepository;
+import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Component;
 
 import java.util.ArrayList;
@@ -14,11 +18,28 @@ public class DataHolder {
 
     public static List<Artist> artists;
     public static List<Song> songs;
-
     public static List<Album> albums;
+    public static List<User> users = null;
+    private final UserRepository userRepository;
+    private final PasswordEncoder passwordEncoder;
+
+    public DataHolder(UserRepository userRepository, PasswordEncoder passwordEncoder) {
+        this.userRepository = userRepository;
+        this.passwordEncoder = passwordEncoder;
+    }
+
 
     @PostConstruct
     public void init(){
+
+        users = new ArrayList<>();
+        if (this.userRepository.count() == 0) {
+            users.add(new User("marijana", passwordEncoder.encode("mp"), "Marijana", "Petrovska", Role.ROLE_USER));
+            users.add(new User("admin", passwordEncoder.encode("admin"), "admin", "admin", Role.ROLE_ADMIN));
+            this.userRepository.saveAll(users);
+        }
+
+
         artists = new ArrayList<>();
 
         Artist art1 = new Artist("FirstName1", "LastName1", "bio1..");
